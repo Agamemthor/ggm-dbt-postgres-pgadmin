@@ -4,7 +4,7 @@ config-version: 2
 profile: ggm_dwh
 
 models:
-  ggm-dwh:
+  ggm_dwh:
     raw:
       +schema: raw
       +materialized: table
@@ -12,8 +12,12 @@ models:
       +schema: stg
       +materialized: view
     ggm:
-      +schema: ggm  # All GGM models go to the `ggm` schema
-      +materialized: table  # All models in ggm/Kern/RGBZ/ will be tables
+      +schema: ggm
+      +materialized: table
     datamart:
       +schema: datamart
       +materialized: view
+
+seeds:
+  ggm_dwh:
+    schema: raw

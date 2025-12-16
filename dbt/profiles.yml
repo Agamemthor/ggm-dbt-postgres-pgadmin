@@ -7,6 +7,6 @@ ggm_dwh:  # This should match the `profile` key in `dbt_project.yml`
       user: youruser
       password: yourpassword
       dbname: ggm_dwh
-      schema: public
+      schema: dwh
       port: 3432
       threads: 4

@@ -11,10 +11,13 @@ docker-compose up --build -d
 ```
 
 login op localhost:5050
+username: your@email.com
 wachtwoord: yourpassword
 
+Als je ingelogd bent, klap de Servers open en selecteer het ggm_dwh. Je krijgt dan een passwordprompt: yourpassword
+
 ### setup dbt
-installeer python requirements (aanbevolen in een virtual env)
+Installeer python requirements (aanbevolen in een virtual env)
 ```bash
 pip install dbt-core dbt-postgres
 ```
@@ -24,20 +27,27 @@ of
 pip install -r requirements.txt
 ```
 
-check de database verbinding:
+Open de dbt directory, installeer de dependencies, en check de database verbinding:
 ```bash
+cd dbt
+dbt deps #<- voor nu niet nodig (idem packages.yml)>
 dbt debug
 ```
 
-'seed' het model. dit vult het raw schema met data uit de csv
+'Seed' het model. dit vult het dwh_raw schema met data uit de csv's
 ```bash
 dbt seed
 ```
-bekijk het nieuwe schema in pgadmin (of public schema nu nog)
+Optioneel: Bekijk het nieuwe dwh_raw schema in pgadmin. Deze bevat nu een aantal tabellen met data.
 
-draai het stg model
+Draai nu het stg model
 ```bash
 dbt run --select stg
 ```
+Optioneel: Bekijk het dwh_stg schema in pgadmin
 
-bekijk het public_stg schema in pgadmin
+Draai nu het ggm model
+```bash
+dbt run --select ggm
+```
+Optioneel: Bekijk het dwh_ggm schema in pgadmin

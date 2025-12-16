@@ -1,7 +1,7 @@
 {
   "Servers": {
     "1": {
-      "Name": "GGM-DWH",
+      "Name": "ggm_dwh",
       "Group": "Servers",
       "Host": "postgres",
       "Port": 5432,

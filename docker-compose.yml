@@ -15,7 +15,7 @@ services:
     ports:
       - "3432:5432"
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U youruser -d media_manager"]
+      test: ["CMD-SHELL", "pg_isready -U youruser -d ggm_dwh"]
       interval: 30s
       timeout: 5s
       retries: 5
