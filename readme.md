@@ -1,23 +1,31 @@
 ## ggm-dbt-postgres-pgadmin
 Dit project is een simpel voorbeeld dat een schets geeft van hoe het GGM gemodelleerd zou kunnen worden aan de hand van dbt. 
 
-Dit project is nog niet af en bevat ongeverifieerde door AI gegenereerde code!
+Let op! Dit project is nog niet af en bevat ongeverifieerde door AI gegenereerde code!
 
-### setup postgres, pgadmin
-git clone dit project en cd in de map
+Dit project gebruikt docker voor een locale Postgresql database, en pgadmin om de database te benaderen.
+Het bevat een dbt model waarmee rauwe data (gebaseerd op data van een zaak-applicatie) vertaald wordt naar de GGM tabel "zaken".
+De rauwe data zijn in dit voorbeeld een drietal simpele csv bestanden in de dbt/seeds map.
+
+### Setup postgres, pgadmin
+Git clone dit project en cd in de map
 
 ```bash
+#linux: 
 docker-compose up --build -d
+#windows:
+docker compose up --build -d
 ```
 
-login op localhost:5050
+Als het draait, test pgadmin door in je browser te navigeren naar:
+http://localhost:5050
 username: your@email.com
 wachtwoord: yourpassword
 
 Als je ingelogd bent, klap de Servers open en selecteer het ggm_dwh. Je krijgt dan een passwordprompt: yourpassword
 
-### setup dbt
-Installeer python requirements (aanbevolen in een virtual env)
+### Setup dbt
+Maak eerst een virtual environment van Python aan, en installeer de requirements
 ```bash
 pip install dbt-core dbt-postgres
 ```
