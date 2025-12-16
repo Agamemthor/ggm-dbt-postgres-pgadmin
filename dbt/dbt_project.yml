@@ -14,8 +14,8 @@ models:
     ggm:
       +schema: ggm
       +materialized: table
-    datamart:
-      +schema: datamart
+    dm:
+      +schema: dm
       +materialized: view
 
 seeds:

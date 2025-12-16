@@ -4,25 +4,28 @@ Dit project is een simpel voorbeeld dat een schets geeft van hoe het GGM gemodel
 Let op! Dit project is nog niet af en bevat ongeverifieerde door AI gegenereerde code!
 
 Dit project gebruikt docker voor een locale Postgresql database, en pgadmin om de database te benaderen.
-Het bevat een dbt model waarmee rauwe data (gebaseerd op data van een zaak-applicatie) vertaald wordt naar de GGM tabel "zaken".
+Het bevat een dbt model waarmee rauwe data (gebaseerd op een zaak-applicatie) vertaald wordt naar de GGM tabel "zaken", onderdeel van .
 De rauwe data zijn in dit voorbeeld een drietal simpele csv bestanden in de dbt/seeds map.
 
+### Benodigde tools
+python, git, docker
+
 ### Setup postgres, pgadmin
-Git clone dit project en cd in de map
+Open Konsole, powershell of iets anders en navigeer naar de map waar je het  project wilt downloaden.
 
 ```bash
-#linux: 
+git clone 
+#Takes between 30 seconds and several minutes to download and build the images
 docker-compose up --build -d
-#windows:
-docker compose up --build -d
 ```
 
-Als het draait, test pgadmin door in je browser te navigeren naar:
+Test pgadmin door in je browser te navigeren naar:
 http://localhost:5050
 username: your@email.com
 wachtwoord: yourpassword
 
-Als je ingelogd bent, klap de Servers open en selecteer het ggm_dwh. Je krijgt dan een passwordprompt: yourpassword
+Als je ingelogd bent, klap de Servers open en vervolgens het ggm_dwh. 
+Voer het wachtwoord in: yourpassword
 
 ### Setup dbt
 Maak eerst een virtual environment van Python aan, en installeer de requirements
@@ -42,7 +45,7 @@ dbt deps #<- voor nu niet nodig (idem packages.yml)>
 dbt debug
 ```
 
-'Seed' het model. dit vult het dwh_raw schema met data uit de csv's
+'Seed' het model. dit vult het dwh_raw schema met data uit de csv's.
 ```bash
 dbt seed
 ```
@@ -52,10 +55,25 @@ Draai nu het stg model
 ```bash
 dbt run --select stg
 ```
-Optioneel: Bekijk het dwh_stg schema in pgadmin
+Optioneel: Bekijk de views van het dwh_stg schema.
 
 Draai nu het ggm model
 ```bash
 dbt run --select ggm
 ```
-Optioneel: Bekijk het dwh_ggm schema in pgadmin
+Optioneel: Bekijk de tabellen in het dwh_ggm schema.
+
+Genereer en bekijk de documentatie. dbt docs serve opent een webbrowser met het model.
+```bash
+dbt docs generate
+dbt docs serve
+```
+
+### Next steps
+- toevoegen metadata vanuit het GGM, bv https://github.com/Gemeente-Delft/Gemeentelijk-Gegevensmodel/blob/f7957cc9baceeaa54b3837aa79aceeae32c30166/docs/definities/definitie_Model%20Kern%20RGBZ.md#zaak of een betere bron.
+- "Echt" het dbt model maken van Zaken, ipv deze ai schmuck. Check ook of het niet Zaak zou moeten zijn ipv zaken?
+- Simpele datamart toevoegen
+- implementeer open metadata https://docs.open-metadata.org/latest/quick-start/local-docker-deployment
+- implementeer cdc (waarschijnlijk met dbt snapshots) en breidt dataset uit
+- query naar sql-server ipv postgres ivm pilot omgeving?
+- tbd...
